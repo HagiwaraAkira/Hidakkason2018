@@ -10,6 +10,7 @@ public class Setting :SingletonMonoBehaviour<Setting>
 
     public int Win;
     public int Lose;
+    public int Draw;
 
     private void Start()
     {

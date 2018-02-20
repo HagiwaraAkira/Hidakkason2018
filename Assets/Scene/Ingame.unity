@@ -6316,6 +6316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Field: {fileID: 1789009816}
+  PlayerTurnIcon: {fileID: 1977766470}
+  EnemyTurnIcon: {fileID: 1988307067}
   StartCut: {fileID: 1231105056}
   MyTurnCut: {fileID: 697680803}
   EnemyTurnCut: {fileID: 62554950}
@@ -6325,6 +6327,7 @@ MonoBehaviour:
   YourHand: {fileID: 1411602178}
   WinText: {fileID: 630242344}
   LoseText: {fileID: 239190920}
+  DrawText: {fileID: 1004786553}
   TotalText: {fileID: 348693762}
 --- !u!114 &1411602178
 MonoBehaviour:
@@ -8938,7 +8941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1977766471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9163,7 +9166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1988307068
 RectTransform:
   m_ObjectHideFlags: 0

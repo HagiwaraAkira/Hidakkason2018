@@ -14,6 +14,9 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	public static string SelectCell;
 	public Field Field;
 	
+	[Header("Turn")]
+	public GameObject PlayerTurnIcon;
+	public GameObject EnemyTurnIcon;	
 	[Header("cut in")]
 	public GameObject StartCut;
 	public GameObject MyTurnCut;
@@ -49,6 +52,8 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 
 		RxState.Where(_ => _ == State.EnemyTrun).Subscribe(_ =>
 			{
+				EnemyTurnIcon.SetActive(true);
+				PlayerTurnIcon.SetActive(false);
 				CutIn(EnemyTurnCut, () =>
 				{
 					Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime)).Subscribe(__ => { SetCard(); });
@@ -57,17 +62,30 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 
 			});
 
-		RxState.Where(_ => _ == State.MyTurn).Subscribe(_ => { CutIn(MyTurnCut, () => { }); });
+		RxState.Where(_ => _ == State.MyTurn).Subscribe(_ =>
+		{
+							EnemyTurnIcon.SetActive(false);
+				PlayerTurnIcon.SetActive(true);
+			CutIn(MyTurnCut, () => { });
+		});
 		
 				RxState.Where(_ => _ == State.Finish).Subscribe(_ =>
 				{
 					var count = Field.CellList.Count(__ => __.IsMine);
-					if (count > 4)
+					if (count > 5)
 					{
 						CutIn(WinCut, () =>
 						{
 							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});
 							Setting.Instance.Win++;
+						});
+					}
+					else if (count == 5)
+					{ 
+						CutIn(DrawCut, () =>
+						{
+							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});
+							Setting.Instance.Draw++;
 						});
 					}
 					else
@@ -153,7 +171,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	public void SetCard(string cellName, Card card)
 	{
 		Field.SetCard(cellName,card);
-		NextState();
+		Judge(cellName);
 		card.Show();
 	}
 
@@ -188,13 +206,22 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 
 	public Text WinText;
 	public Text LoseText;
+	public Text DrawText;
 	public Text TotalText;
 
 	private void SetResult()
 	{
 		WinText.text = Setting.Instance.Win.ToString();
 		LoseText .text = Setting.Instance.Lose.ToString();
+				DrawText .text = Setting.Instance.Draw.ToString();
 				TotalText.text = (Setting.Instance.Win+Setting.Instance.Lose).ToString();
+	}
+
+	public void Judge(string cellName)
+	{
+		Debug.Log(cellName);
+		NextState();
+		
 	}
 }
 
