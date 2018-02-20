@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class InGameController : SingletonMonoBehaviour<InGameController>
@@ -41,6 +43,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	// Use this for initialization
 	void Start ()
 	{
+		SetResult();
 		YourHand.Draw();
 		CurrentState = State.Draw;
 
@@ -63,14 +66,16 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 					{
 						CutIn(WinCut, () =>
 						{
-							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});							
+							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});
+							Setting.Instance.Win++;
 						});
 					}
 					else
 					{
 						CutIn(LoseCut, () =>
 						{
-							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});														
+							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});
+							Setting.Instance.Lose++;
 						});	
 					}
 				});
@@ -179,6 +184,17 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				callback();
 			});
 		});
+	}
+
+	public Text WinText;
+	public Text LoseText;
+	public Text TotalText;
+
+	private void SetResult()
+	{
+		WinText.text = Setting.Instance.Win.ToString();
+		LoseText .text = Setting.Instance.Lose.ToString();
+				TotalText.text = (Setting.Instance.Win+Setting.Instance.Lose).ToString();
 	}
 }
 

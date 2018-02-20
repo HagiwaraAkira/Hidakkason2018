@@ -8,6 +8,9 @@ public class Setting :SingletonMonoBehaviour<Setting>
     public int VisibleMode = 0;
     public int RuleMode = 0;
 
+    public int Win;
+    public int Lose;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);

@@ -6323,6 +6323,9 @@ MonoBehaviour:
   LoseCut: {fileID: 1778479890}
   DrawCut: {fileID: 1762002276}
   YourHand: {fileID: 1411602178}
+  WinText: {fileID: 630242344}
+  LoseText: {fileID: 239190920}
+  TotalText: {fileID: 348693762}
 --- !u!114 &1411602178
 MonoBehaviour:
   m_ObjectHideFlags: 0
