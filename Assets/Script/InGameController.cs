@@ -229,6 +229,8 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 			{
 				if (targetCell.Card.Right < cell.Card.Left)
 				{
+					if(targetCell.IsMine && CurrentState == State.EnemyTrun || !targetCell.IsMine && CurrentState == State.MyTurn)
+					targetCell.Card.AnimationX();
 					targetCell.ChangeImage(CurrentState);
 				}
 			}
@@ -241,6 +243,8 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				{
 					if (targetCell2.Card.Bottom < cell.Card.Top)
 					{
+						if(targetCell2.IsMine && CurrentState == State.EnemyTrun || !targetCell2.IsMine && CurrentState == State.MyTurn)
+						targetCell2.Card.AnimationY();
 						targetCell2.ChangeImage(CurrentState);
 					}
 				}
@@ -254,6 +258,8 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 			{
 				if (targetCell3.Card.Top < cell.Card.Bottom)
 				{
+					if(targetCell3.IsMine && CurrentState == State.EnemyTrun || !targetCell3.IsMine && CurrentState == State.MyTurn)
+					targetCell3.Card.AnimationY();
 					targetCell3.ChangeImage(CurrentState);
 				}
 			}
@@ -267,6 +273,8 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				{
 					if (targetCell4.Card.Left < cell.Card.Right)
 					{
+						if(targetCell4.IsMine && CurrentState == State.EnemyTrun || !targetCell4.IsMine && CurrentState == State.MyTurn)
+							targetCell4.Card.AnimationX();
 						targetCell4.ChangeImage(CurrentState);
 					}
 				}

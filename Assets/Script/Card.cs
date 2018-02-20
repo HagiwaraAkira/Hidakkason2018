@@ -79,4 +79,13 @@ public void Awake()
     public void OnDrop(PointerEventData e)
     {
     }
+
+    public void AnimationX()
+    {
+        iTween.RotateAdd(gameObject, iTween.Hash("y", 360f, "time", 0.5f,            "easeType",iTween.EaseType.linear));
+    }
+    public void AnimationY()
+    {
+        iTween.RotateAdd(gameObject, iTween.Hash("x", 360f, "time", 0.5f,            "easeType",iTween.EaseType.linear));        
+    }
 }
