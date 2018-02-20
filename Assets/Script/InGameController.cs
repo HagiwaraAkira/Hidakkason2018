@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -9,9 +10,11 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 {
 	public static string SelectCell;
 	public Field Field;
+	public GameObject StartCut;
 
 	public enum State
 	{
+		Draw,
 		MyTurn,
 		EnemyTrun,
 		Finish
@@ -30,7 +33,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	void Start ()
 	{
 		YourHand.Draw();
-		CurrentState = State.MyTurn;
+		CurrentState = State.Draw;
 
 		RxState.Where(_ => _ == State.EnemyTrun).Subscribe(_ =>
 			{
@@ -40,6 +43,16 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				SetCard(emptyCell.name,card);
 
 			});
+		Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime * 5)).Subscribe(_ =>
+		{
+			StartCut.SetActive(true);
+			Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime * 5)).Subscribe(__ =>
+			{
+				StartCut.SetActive(false);
+				YourHand.EnemyHands.ForEach(enemyhand=>enemyhand.Show());
+								YourHand.MyHands.ForEach(myhand=>myhand.Show());
+			});
+		});
 	}
 	
 	// Update is called once per frame

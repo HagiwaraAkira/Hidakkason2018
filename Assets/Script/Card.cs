@@ -19,24 +19,38 @@ public class Card : MonoBehaviour,IBeginDragHandler, IDragHandler, IEndDragHandl
     public Text RightText;
     public Text LeftText;
     public Image Image;
+    private Sprite _sprite;
 
     public bool Used;
 
     public RectTransform RectTransform;
     public Vector3 Position;
 
+    public void Awake()
+    {
+               TopText.text = "";
+        RightText.text = "";
+        BottomText.text = "";
+        LeftText.text = "";
+    }
     public void Set(int top, int right, int bottom, int left, Sprite image)
     {
         Top = top;
         Right = right;
         Bottom = bottom;
         Left = left;
-        TopText.text = top.ToString();
-        RightText.text = right.ToString();
-        BottomText.text = bottom.ToString();
-        LeftText.text = left.ToString();
-        Image.sprite = image;
+        _sprite = image;
+
         RectTransform = transform as RectTransform;
+    }
+
+    public void Show()
+    {
+               TopText.text = Top.ToString();
+        RightText.text = Right.ToString();
+        BottomText.text = Bottom.ToString();
+        LeftText.text = Left.ToString(); 
+        Image.sprite = _sprite;
     }
 
     public void OnBeginDrag(PointerEventData e)

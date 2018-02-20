@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 
 public class YourHand : MonoBehaviour
 {
+    public float animationTime = 0.1f;
     public List<Card> EnemyHands;
     public List<Card> MyHands;
     public Card Enemy1;
@@ -46,7 +47,7 @@ public class YourHand : MonoBehaviour
         EnemyHands.ForEach(_ =>
         {
             _.gameObject.SetActive(false);
-            Observable.Timer(TimeSpan.FromSeconds(count *1f)).Subscribe(__ =>
+            Observable.Timer(TimeSpan.FromSeconds(count *animationTime)).Subscribe(__ =>
             {
                 LoadCard(_);
                 DrawEnemyAnimation(_.gameObject);
@@ -59,7 +60,7 @@ public class YourHand : MonoBehaviour
         MyHands.ForEach(_ =>
         {
             _.gameObject.SetActive(false);
-            Observable.Timer(TimeSpan.FromSeconds(count *1f)).Subscribe(__ =>
+            Observable.Timer(TimeSpan.FromSeconds(count *animationTime)).Subscribe(__ =>
             {
                 LoadCard(_);
                 DrawAnimation(_.gameObject);
@@ -75,11 +76,11 @@ public class YourHand : MonoBehaviour
                 "x",0,
                 "y",0,
                 "easeType",iTween.EaseType.linear,
-                "time",1
+                "time",animationTime
             )
         );
         o.SetActive(true);
-        iTween.RotateAdd(o, iTween.Hash("z", 360f, "time", 1f,            "easeType",iTween.EaseType.linear));
+        iTween.RotateAdd(o, iTween.Hash("z", 360f, "time", animationTime,            "easeType",iTween.EaseType.linear));
     }
     public void DrawEnemyAnimation(GameObject o)
     {
@@ -88,11 +89,11 @@ public class YourHand : MonoBehaviour
                 "x",1136,
                 "y",0,
                 "easeType",iTween.EaseType.linear,
-                "time",1
+                "time",animationTime
             )
         );
         o.SetActive(true);
-        iTween.RotateAdd(o, iTween.Hash("z", 360f, "time", 1f,            "easeType",iTween.EaseType.linear));
+        iTween.RotateAdd(o, iTween.Hash("z", 360f, "time", animationTime,            "easeType",iTween.EaseType.linear));
     }
 
 
