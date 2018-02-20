@@ -5,14 +5,21 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class InGameController : SingletonMonoBehaviour<InGameController>
 {
 	public static string SelectCell;
 	public Field Field;
+	
+	[Header("cut in")]
 	public GameObject StartCut;
 	public GameObject MyTurnCut;
 	public GameObject EnemyTurnCut;
+	
+	public GameObject WinCut;
+	public GameObject LoseCut;
+	public GameObject DrawCut;
 
 	public enum State
 	{
@@ -41,12 +48,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 			{
 				CutIn(EnemyTurnCut, () =>
 				{
-					Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime)).Subscribe(__ =>
-					{
-													var emptyCell = Field.CellList.FirstOrDefault(cell => cell.Card == null);
-				var card = YourHand.EnemyHands.FirstOrDefault(hand => hand.Used == false);
-				SetCard(emptyCell.name,card);		
-					});
+					Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime)).Subscribe(__ => { SetCard(); });
 
 				});
 
@@ -54,11 +56,77 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 
 		RxState.Where(_ => _ == State.MyTurn).Subscribe(_ => { CutIn(MyTurnCut, () => { }); });
 		
+				RxState.Where(_ => _ == State.Finish).Subscribe(_ =>
+				{
+					var count = Field.CellList.Count(__ => __.IsMine);
+					if (count > 4)
+					{
+						CutIn(WinCut, () =>
+						{
+							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});							
+						});
+					}
+					else
+					{
+						CutIn(LoseCut, () =>
+						{
+							Observable.Timer(TimeSpan.FromSeconds(2f)).Subscribe(__ => { ResetGame();});														
+						});	
+					}
+				});
+		
 		CutIn(StartCut,()=>{
-			YourHand.EnemyHands.ForEach(enemyhand=>enemyhand.Show());
-								YourHand.MyHands.ForEach(myhand=>myhand.Show());
+			EnemyHandShow();
+			YourHand.MyHands.ForEach(myhand=>myhand.Show());
 			CurrentState = State.MyTurn;
 		});
+	}
+
+	private void EnemyHandShow()
+	{
+		switch (Setting.Instance.VisibleMode)
+		{
+			case 0:
+				YourHand.EnemyHands.ForEach(enemyhand=>enemyhand.Show());
+				break;
+			case 1:
+				break;
+			case 2:
+				foreach (var hand in YourHand.EnemyHands.Take(3))
+				{
+					hand.Show();
+				}
+				break;
+		}
+		
+	}
+
+	private void SetCard()
+	{
+		Card card = null;
+		Cell emptyCell = null;
+		switch (Setting.Instance.EnemyMode)
+		{
+
+			case 0:
+			  	emptyCell = Field.CellList.FirstOrDefault(cell => cell.Card == null);
+				 card = YourHand.EnemyHands.Where(hand => hand.Used == false).RandomAt();
+				break;
+			case 1:
+				emptyCell = Field.CellList.FirstOrDefault(cell => cell.Card == null);
+				 card = YourHand.EnemyHands.FirstOrDefault(hand => hand.Used == false);
+				break;
+			case 3:
+				return;
+				break;
+			default:
+				emptyCell = Field.CellList.FirstOrDefault(cell => cell.Card == null);
+				card = YourHand.EnemyHands.FirstOrDefault(hand => hand.Used == false);
+				break;
+		}
+		
+
+		SetCard(emptyCell.name,card);				
 	}
 	
 	// Update is called once per frame
@@ -81,6 +149,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	{
 		Field.SetCard(cellName,card);
 		NextState();
+		card.Show();
 	}
 
 	public void NextState()
@@ -110,5 +179,14 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				callback();
 			});
 		});
+	}
+}
+
+public static class LinqExtensions
+{
+	public static T RandomAt<T>(this IEnumerable<T> ie)
+	{
+		if (ie.Any() == false) return default(T);
+		return ie.ElementAt(Random.Range(0, ie.Count()));
 	}
 }

@@ -12,6 +12,7 @@ public class Cell : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
     public Sprite MyCell; 
     public Sprite EnemyCell;
     public Image Image;
+    public bool IsMine;
     
     public Card Card;
         public void OnPointerEnter(PointerEventData eventData)
@@ -41,9 +42,11 @@ public class Cell : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
                 break;
             case InGameController.State.MyTurn:
                                 Image.sprite = MyCell;
+                IsMine = true;
                 break;
             default:
                                 Image.sprite = DefaultCell;
+                                IsMine = false;
                 break;
         }
             

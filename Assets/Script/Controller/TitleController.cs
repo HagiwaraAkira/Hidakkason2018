@@ -12,7 +12,6 @@ public class TitleController : MonoBehaviour
 	public Button SettingButton;
 	public Button SettingCloseButton;
 	public GameObject SettingPanle;
-
 	public static bool isSetting;
 
 	// Use this for initialization

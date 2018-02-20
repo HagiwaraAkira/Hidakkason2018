@@ -22,11 +22,11 @@ public class Card : MonoBehaviour,IBeginDragHandler, IDragHandler, IEndDragHandl
     private Sprite _sprite;
 
     public bool Used;
+    public bool IsMine;
 
     public RectTransform RectTransform;
     public Vector3 Position;
-
-    public void Awake()
+public void Awake()
     {
                TopText.text = "";
         RightText.text = "";
