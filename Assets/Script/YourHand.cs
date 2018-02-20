@@ -1,27 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UniRx;
+using UniRx.Examples;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class YourHand : MonoBehaviour
 {
-    public List<Image> EnemyHands;
-    public List<Image> MyHands;
-    public Image Enemy1;
-    public Image Enemy2;
-    public Image Enemy3;
-    public Image Enemy4;
-    public Image Enemy5;
+    public List<Card> EnemyHands;
+    public List<Card> MyHands;
+    public Card Enemy1;
+    public Card Enemy2;
+    public Card Enemy3;
+    public Card Enemy4;
+    public Card Enemy5;
     
-    public Image Player1;
-    public Image Player2;
-    public Image Player3;
-    public Image Player4;
-    public Image Player5;
+    public Card Player1;
+    public Card Player2;
+    public Card Player3;
+    public Card Player4;
+    public Card Player5;
     
     public void Draw()
     {
-        EnemyHands = new List<Image>()
+        EnemyHands = new List<Card>()
         {
             Enemy1,
             Enemy2,
@@ -29,7 +33,7 @@ public class YourHand : MonoBehaviour
             Enemy4,
             Enemy5,
         };
-        MyHands = new List<Image>
+        MyHands = new List<Card>
         {
             Player1,
             Player2,
@@ -37,21 +41,77 @@ public class YourHand : MonoBehaviour
             Player4,
             Player5,
         };
-        EnemyHands.ForEach(LoadCard);
-        MyHands.ForEach(LoadCard);
+        
+        int count = 0;
+        EnemyHands.ForEach(_ =>
+        {
+            _.gameObject.SetActive(false);
+            Observable.Timer(TimeSpan.FromSeconds(count *1f)).Subscribe(__ =>
+            {
+                LoadCard(_);
+                DrawEnemyAnimation(_.gameObject);
+            });
+                
+            count++; 
+
+        });
+        count = 0;
+        MyHands.ForEach(_ =>
+        {
+            _.gameObject.SetActive(false);
+            Observable.Timer(TimeSpan.FromSeconds(count *1f)).Subscribe(__ =>
+            {
+                LoadCard(_);
+                DrawAnimation(_.gameObject);
+            });
+            count++;
+        });
+    }
+
+    public void DrawAnimation(GameObject o)
+    {
+        iTween.MoveFrom(o, 
+            iTween.Hash(
+                "x",0,
+                "y",0,
+                "easeType",iTween.EaseType.linear,
+                "time",1
+            )
+        );
+        o.SetActive(true);
+        iTween.RotateAdd(o, iTween.Hash("z", 360f, "time", 1f,            "easeType",iTween.EaseType.linear));
+    }
+    public void DrawEnemyAnimation(GameObject o)
+    {
+        iTween.MoveFrom(o, 
+            iTween.Hash(
+                "x",1136,
+                "y",0,
+                "easeType",iTween.EaseType.linear,
+                "time",1
+            )
+        );
+        o.SetActive(true);
+        iTween.RotateAdd(o, iTween.Hash("z", 360f, "time", 1f,            "easeType",iTween.EaseType.linear));
     }
 
 
-    private void LoadCard(Image image)
+    private void LoadCard(Card card)
     {
-                CsvLoad.Import();
-        var rand = Random.RandomRange(0, CsvLoad.CardNum-1);
+        CsvLoad.Import();
+        var rand = Random.RandomRange(1, CsvLoad.CardNum-1);
         var path = CsvLoad.CsvDatas[rand][CsvLoad.path];
         path  = "Sprites/cards/" + path;
         path = path.Replace(".png","");
-        Debug.Log(path);
+//        Debug.Log(path);
+        
             var sprite = Resources.Load<Sprite>(path);
-            image.sprite = sprite; 
+        var top =  int.Parse( CsvLoad.CsvDatas[rand][CsvLoad.top]);
+                var right =  int.Parse( CsvLoad.CsvDatas[rand][CsvLoad.right]);
+                var bottom =  int.Parse( CsvLoad.CsvDatas[rand][CsvLoad.bottom]);
+                var left =  int.Parse( CsvLoad.CsvDatas[rand][CsvLoad.left]);
+            card.Set(top,right,bottom,left,sprite); 
+        
     }
 
 }
