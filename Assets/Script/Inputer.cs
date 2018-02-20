@@ -16,5 +16,6 @@ public class Inputer : MonoBehaviour {
 	public void Move()
 	{
 		SceneDirector.Instance.Move("Ingame");
+		SoundManager.Instance.PlaySe("button");
 	}
 }
