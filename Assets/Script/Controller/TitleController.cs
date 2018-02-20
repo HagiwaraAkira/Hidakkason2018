@@ -30,6 +30,11 @@ public class TitleController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		Setting.Instance.EnemyMode = 0;
+		Setting.Instance.VisibleMode = 0;
+		Setting.Instance.PlusMode = false;
+		Setting.Instance.SameMode = false;
+		Setting.Instance.ReverseMode = false;
 		PlayButton.OnClickAsObservable().Subscribe(_ => { SceneManager.LoadScene("InGame"); });
 		SettingButton.OnClickAsObservable().Subscribe(_ =>
 		{
@@ -50,14 +55,14 @@ public class TitleController : MonoBehaviour
 		PlusToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.PlusMode = _;});
 		ReverseToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.ReverseMode = _;});
 		
-		RandomToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.EnemyMode = 0;});
 		OrderToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.EnemyMode = 1;});
 		AiToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.EnemyMode = 2;});
 		ManualToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.EnemyMode = 3;});
+		RandomToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.EnemyMode = 0;});
 		
-		OpenToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.VisibleMode = 0;});
 		CloseToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.VisibleMode = 1;});
 		ThreeToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.VisibleMode = 2;});
+		OpenToggle.OnValueChangedAsObservable().Subscribe(_ => { Setting.Instance.VisibleMode = 0;});
 	}
 	
 	// Update is called once per frame
