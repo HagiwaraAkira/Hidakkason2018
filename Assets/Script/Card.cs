@@ -20,6 +20,8 @@ public class Card : MonoBehaviour,IBeginDragHandler, IDragHandler, IEndDragHandl
     public Text LeftText;
     public Image Image;
 
+    public bool Used;
+
     public RectTransform RectTransform;
     public Vector3 Position;
 
@@ -52,12 +54,10 @@ public class Card : MonoBehaviour,IBeginDragHandler, IDragHandler, IEndDragHandl
     {
         RectTransform.localPosition = Position;
 
-        Observable.Timer(TimeSpan.FromSeconds(0.2f)).Subscribe(_ =>
+        Observable.NextFrame().Where(_=>InGameController.SelectCell != "").Subscribe(_ =>
         {
-            Debug.Log(InGameController.SelectCell); 
             InGameController.Instance.SetCard(InGameController.SelectCell,this);
-            
-        InGameController.SelectCell = "";
+            InGameController.SelectCell = "";
         });
         
     }

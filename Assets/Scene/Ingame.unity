@@ -641,6 +641,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &161011384
 GameObject:
@@ -1138,6 +1142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &286912167
 GameObject:
@@ -3041,6 +3049,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &708587798
 GameObject:
@@ -3749,6 +3761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &886727972
 GameObject:
@@ -4857,6 +4873,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &1084706599
 GameObject:
@@ -5364,6 +5384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &1240330535
 GameObject:
@@ -5673,6 +5697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Field: {fileID: 1789009816}
+  CurrentState: 0
   YourHand: {fileID: 1411602178}
 --- !u!114 &1411602178
 MonoBehaviour:
@@ -6739,6 +6764,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &1712797020
 GameObject:
@@ -7066,6 +7095,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &1789009813
 GameObject:
@@ -8391,6 +8424,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90117254f72a44e17897866be578a1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DefaultCell: {fileID: 21300000, guid: 6e957f7ecf6084b8a8ea848519d061a2, type: 3}
+  MyCell: {fileID: 21300000, guid: 9d496701f75b84aaa98a23af4518ba5a, type: 3}
+  EnemyCell: {fileID: 21300000, guid: db58b8dfeabe64276aba931348feadf5, type: 3}
+  Image: {fileID: 0}
   Card: {fileID: 0}
 --- !u!1 &2083197114
 GameObject:

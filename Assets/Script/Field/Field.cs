@@ -17,6 +17,18 @@ public class Field : MonoBehaviour
 	
 	// Use this for initialization
 	void Start () {
+		CellList = new List<Cell>()
+		{
+			Cell1,
+			Cell2,	
+			Cell3,
+			Cell4,	
+			Cell5,
+			Cell6,	
+			Cell7,
+			Cell8,	
+						Cell9,	
+		};
 		
 	}
 
@@ -24,9 +36,17 @@ public class Field : MonoBehaviour
 	{
 
 		var cell = GetCell(cellName);
+		if (cell.Card != null)
+		{
+			return;
+		}
 		card.transform.SetParent(cell.transform);
 		card.transform.localPosition= Vector3.zero;
 		cell.Card = card;
+		cell.ChangeImage(InGameController.Instance.CurrentState);
+		card.Used = true;
+
+
 	}
 
 	public Cell GetCell(string cellName)
