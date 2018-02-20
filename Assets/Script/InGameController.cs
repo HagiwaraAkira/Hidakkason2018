@@ -56,7 +56,10 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				PlayerTurnIcon.SetActive(false);
 				CutIn(EnemyTurnCut, () =>
 				{
-					Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime)).Subscribe(__ => { SetCard(); });
+					Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime)).Subscribe(__ =>
+					{
+						SetCard(true);
+					});
 
 				});
 
@@ -124,7 +127,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 		
 	}
 
-	private void SetCard()
+	private void SetCard(bool anim = false)
 	{
 		Card card = null;
 		Cell emptyCell = null;
@@ -149,7 +152,12 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 		}
 		
 
-		SetCard(emptyCell.name,card);				
+		SetCard(emptyCell.name,card);
+		if (anim)
+		{
+		card.AnimationX();
+			
+		}
 	}
 	
 	// Update is called once per frame

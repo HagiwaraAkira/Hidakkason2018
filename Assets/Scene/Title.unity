@@ -927,6 +927,16 @@ MonoBehaviour:
   SettingButton: {fileID: 1232038175}
   SettingCloseButton: {fileID: 765454013}
   SettingPanle: {fileID: 1327129783}
+  SameToggle: {fileID: 1643257071}
+  PlusToggle: {fileID: 1406309678}
+  ReverseToggle: {fileID: 1572170967}
+  RandomToggle: {fileID: 391223164}
+  OrderToggle: {fileID: 1608637719}
+  AiToggle: {fileID: 1632485959}
+  ManualToggle: {fileID: 775731471}
+  OpenToggle: {fileID: 411160318}
+  CloseToggle: {fileID: 356535847}
+  ThreeToggle: {fileID: 1618343738}
 --- !u!1 &431515155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,7 +1299,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyMode: 0
   VisibleMode: 0
-  RuleMode: 0
+  SameMode: 0
+  PlusMode: 0
+  ReverseMode: 0
+  Win: 0
+  Lose: 0
+  Draw: 0
 --- !u!4 &645372508
 Transform:
   m_ObjectHideFlags: 0
@@ -2690,7 +2705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1327129784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3053,7 +3068,7 @@ GameObject:
   - component: {fileID: 1406309677}
   - component: {fileID: 1406309678}
   m_Layer: 5
-  m_Name: Toggle (1)
+  m_Name: plus_toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3117,21 +3132,10 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 636982917}
   toggleTransition: 1
   graphic: {fileID: 1353241087}
-  m_Group: {fileID: 1659620856}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 645372507}
-        m_MethodName: SetRuleMode
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
@@ -3351,7 +3355,7 @@ GameObject:
   - component: {fileID: 1572170966}
   - component: {fileID: 1572170967}
   m_Layer: 5
-  m_Name: Toggle (2)
+  m_Name: reverse_toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3415,21 +3419,10 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1100384142}
   toggleTransition: 1
   graphic: {fileID: 1452101497}
-  m_Group: {fileID: 1659620856}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 645372507}
-        m_MethodName: SetRuleMode
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
@@ -3859,7 +3852,7 @@ GameObject:
   - component: {fileID: 1643257070}
   - component: {fileID: 1643257071}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: same_toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3923,24 +3916,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 642684671}
   toggleTransition: 1
   graphic: {fileID: 1058298900}
-  m_Group: {fileID: 1659620856}
+  m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 645372507}
-        m_MethodName: SetRuleMode
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1645086206
 GameObject:
   m_ObjectHideFlags: 0
@@ -4052,7 +4034,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1659620854}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -1184210157, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
