@@ -13,6 +13,8 @@ public class TitleController : MonoBehaviour
 	public Button SettingCloseButton;
 	public GameObject SettingPanle;
 
+	public static bool isSetting;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -26,6 +28,11 @@ public class TitleController : MonoBehaviour
 		{
 			SettingPanle.gameObject.SetActive(false);
 		});
+
+		if (isSetting)
+		{
+			SettingPanle.gameObject.SetActive(true);	
+		}
 
 	}
 	

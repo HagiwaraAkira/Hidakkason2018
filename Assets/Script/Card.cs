@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
+using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Card : MonoBehaviour
-{
+public class Card : MonoBehaviour,IBeginDragHandler, IDragHandler, IEndDragHandler,IDropHandler{
     public int Id;
     public int Level;
     public int Left;
@@ -18,6 +20,9 @@ public class Card : MonoBehaviour
     public Text LeftText;
     public Image Image;
 
+    public RectTransform RectTransform;
+    public Vector3 Position;
+
     public void Set(int top, int right, int bottom, int left, Sprite image)
     {
         Top = top;
@@ -29,5 +34,35 @@ public class Card : MonoBehaviour
         BottomText.text = bottom.ToString();
         LeftText.text = left.ToString();
         Image.sprite = image;
+        RectTransform = transform as RectTransform;
+    }
+
+    public void OnBeginDrag(PointerEventData e)
+    {
+        Position = transform.localPosition;
+    }
+
+    public void OnDrag(PointerEventData e)
+    {
+        RectTransform.position = e.position;
+
+    }
+
+    public void OnEndDrag(PointerEventData e)
+    {
+        RectTransform.localPosition = Position;
+
+        Observable.Timer(TimeSpan.FromSeconds(0.2f)).Subscribe(_ =>
+        {
+            Debug.Log(InGameController.SelectCell); 
+            InGameController.Instance.SetCard(InGameController.SelectCell,this);
+            
+        InGameController.SelectCell = "";
+        });
+        
+    }
+
+    public void OnDrop(PointerEventData e)
+    {
     }
 }
