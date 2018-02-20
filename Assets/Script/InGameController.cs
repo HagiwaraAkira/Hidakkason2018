@@ -219,6 +219,22 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 
 	public void Judge(string cellName)
 	{
+		var cell = Field.GetCell(cellName);
+		var index = Field.CellList.IndexOf(cell);
+		// 左側比較
+		if (index % 3 != 0)
+		{
+			var targetCell = Field.CellList[index - 1];
+			if (targetCell.Card != null)
+			{
+				
+			if (targetCell.Card.Right < cell.Card.Left)
+			{
+				targetCell.ChangeImage(CurrentState);
+			}
+				
+			}
+		}
 		Debug.Log(cellName);
 		NextState();
 		
