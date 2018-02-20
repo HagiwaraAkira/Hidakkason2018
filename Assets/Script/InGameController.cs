@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +25,9 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	public GameObject LoseCut;
 	public GameObject DrawCut;
 
+	public TimeCounter MyTurnCounter;
+	public TimeCounter EnemyTurnCounter;
+
 	public enum State
 	{
 		Draw,
@@ -47,6 +48,16 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	// Use this for initialization
 	void Start ()
 	{
+		MyTurnCounter.RestObservable.Subscribe(_ =>
+		{
+			SetCard();
+		});
+		
+		EnemyTurnCounter.RestObservable.Subscribe(_ =>
+		{
+			SetCard();
+		});
+		
 		SetModeText();
 		SetResult();
 		YourHand.Draw();
@@ -137,7 +148,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 		{
 
 			case 0:
-			  	emptyCell = Field.CellList.FirstOrDefault(cell => cell.Card == null);
+			  	emptyCell = Field.CellList.Where(cell => cell.Card == null).RandomAt();
 				 card = YourHand.EnemyHands.Where(hand => hand.Used == false).RandomAt();
 				break;
 			case 1:
@@ -199,6 +210,9 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 		{
 			CurrentState = State.EnemyTrun;	
 		}
+
+		MyTurnCounter.RestTime = 30f;
+				EnemyTurnCounter.RestTime = 30f;
 	}
 
 	public void CutIn(GameObject cutin,Action callback)
