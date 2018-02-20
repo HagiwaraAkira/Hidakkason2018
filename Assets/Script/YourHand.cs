@@ -100,7 +100,7 @@ public class YourHand : MonoBehaviour
     private void LoadCard(Card card)
     {
         CsvLoad.Import();
-        var rand = Random.RandomRange(1, CsvLoad.CardNum-1);
+        var rand = Random.RandomRange(1, CsvLoad.CardNum-2);
         var path = CsvLoad.CsvDatas[rand][CsvLoad.path];
         path  = "Sprites/cards/" + path;
         path = path.Replace(".png","");

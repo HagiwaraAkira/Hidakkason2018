@@ -11,8 +11,9 @@ using Random = UnityEngine.Random;
 
 public class InGameController : SingletonMonoBehaviour<InGameController>
 {
-	public static string SelectCell;
+	public static string SelectCell = "";
 	public Field Field;
+	public Status Status;
 	
 	[Header("Turn")]
 	public GameObject PlayerTurnIcon;
@@ -46,6 +47,7 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	// Use this for initialization
 	void Start ()
 	{
+		SetModeText();
 		SetResult();
 		YourHand.Draw();
 		CurrentState = State.Draw;
@@ -288,10 +290,49 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				}
 
 			}
-			Debug.Log(cellName);
+
+		var count = Field.CellList.Count(_=>_.IsMine);
+		count += YourHand.MyHands.Count(_=>_.Used==false);
+		Status.SetScore(count);
 				NextState();
 		}
-			
+	
+	
+	#region Mode visible
+
+	public Text ModeText;
+
+	public void SetModeText()
+	{
+		var mode = "";
+		if (Setting.Instance.SameMode)
+		{
+			mode += "SAME";
+		}
+
+
+		if (Setting.Instance.PlusMode)
+		{
+					if (mode != "")
+		{
+			mode += " + ";
+		}
+			mode += "PLUS";
+		}
+
+		if (Setting.Instance.ReverseMode)
+		{
+						if (mode != "")
+		{
+			mode += " + ";
+		}
+			mode += "REVERSE";
+		}
+
+		ModeText.text = mode;
+	}
+
+	#endregion
 }
 
 public static class LinqExtensions

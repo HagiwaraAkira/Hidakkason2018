@@ -4,6 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Experimental.UIElements;
+using Debug = UnityEngine.Debug;
 using Image = UnityEngine.UI.Image;
 
 public class Cell : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
@@ -24,7 +25,7 @@ public class Cell : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
         {
             if (InGameController.SelectCell == gameObject.name)
             {
-                InGameController.SelectCell = gameObject.name;
+                InGameController.SelectCell = "";
             };
         }
 

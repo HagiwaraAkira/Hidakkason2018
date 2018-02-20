@@ -6213,8 +6213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -412, y: 279}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -234, y: 279}
+  m_SizeDelta: {x: 600, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1392625990
 MonoBehaviour:
@@ -6316,6 +6316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Field: {fileID: 1789009816}
+  Status: {fileID: 1811059826}
   PlayerTurnIcon: {fileID: 1977766470}
   EnemyTurnIcon: {fileID: 1988307067}
   StartCut: {fileID: 1231105056}
@@ -6329,6 +6330,7 @@ MonoBehaviour:
   LoseText: {fileID: 239190920}
   DrawText: {fileID: 1004786553}
   TotalText: {fileID: 348693762}
+  ModeText: {fileID: 1392625991}
 --- !u!114 &1411602178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8213,6 +8215,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1811059825}
+  - component: {fileID: 1811059826}
   m_Layer: 5
   m_Name: status
   m_TagString: Untagged
@@ -8248,6 +8251,30 @@ RectTransform:
   m_AnchoredPosition: {x: -432.48718, y: 191.72113}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1811059826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1811059824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c008cdcac5fc43248fd4bba65469435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Score:
+  - {fileID: 1712797022}
+  - {fileID: 302080591}
+  - {fileID: 287672739}
+  - {fileID: 562400701}
+  - {fileID: 417171432}
+  - {fileID: 1020788232}
+  - {fileID: 445989052}
+  - {fileID: 966793264}
+  - {fileID: 2083197116}
+  - {fileID: 1240330537}
+  MySprite: {fileID: 21300000, guid: 58f7cac2f820a4b349c74b8ab654480d, type: 3}
+  EnemySprite: {fileID: 21300000, guid: d84c0e0cd4ad346e4b1269600a497859, type: 3}
 --- !u!1 &1839145153
 GameObject:
   m_ObjectHideFlags: 0
