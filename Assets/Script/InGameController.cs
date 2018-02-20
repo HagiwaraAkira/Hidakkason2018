@@ -11,6 +11,8 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	public static string SelectCell;
 	public Field Field;
 	public GameObject StartCut;
+	public GameObject MyTurnCut;
+	public GameObject EnemyTurnCut;
 
 	public enum State
 	{
@@ -37,21 +39,25 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 
 		RxState.Where(_ => _ == State.EnemyTrun).Subscribe(_ =>
 			{
-				var emptyCell = Field.CellList.FirstOrDefault(cell => cell.Card == null);
+				CutIn(EnemyTurnCut, () =>
+				{
+					Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime)).Subscribe(__ =>
+					{
+													var emptyCell = Field.CellList.FirstOrDefault(cell => cell.Card == null);
 				var card = YourHand.EnemyHands.FirstOrDefault(hand => hand.Used == false);
-				
-				SetCard(emptyCell.name,card);
+				SetCard(emptyCell.name,card);		
+					});
+
+				});
 
 			});
-		Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime * 5)).Subscribe(_ =>
-		{
-			StartCut.SetActive(true);
-			Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime * 5)).Subscribe(__ =>
-			{
-				StartCut.SetActive(false);
-				YourHand.EnemyHands.ForEach(enemyhand=>enemyhand.Show());
+
+		RxState.Where(_ => _ == State.MyTurn).Subscribe(_ => { CutIn(MyTurnCut, () => { }); });
+		
+		CutIn(StartCut,()=>{
+			YourHand.EnemyHands.ForEach(enemyhand=>enemyhand.Show());
 								YourHand.MyHands.ForEach(myhand=>myhand.Show());
-			});
+			CurrentState = State.MyTurn;
 		});
 	}
 	
@@ -91,5 +97,18 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 		{
 			CurrentState = State.EnemyTrun;	
 		}
+	}
+
+	public void CutIn(GameObject cutin,Action callback)
+	{
+		Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime * 5)).Subscribe(_ =>
+		{
+			cutin.SetActive(true);
+			Observable.Timer(TimeSpan.FromSeconds(YourHand.animationTime * 5)).Subscribe(__ =>
+			{
+				cutin.SetActive(false);
+				callback();
+			});
+		});
 	}
 }
