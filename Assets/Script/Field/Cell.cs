@@ -39,6 +39,7 @@ public class Cell : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
         {case InGameController.State.EnemyTrun:
 
                 Image.sprite = EnemyCell;
+                                IsMine = false;
                 break;
             case InGameController.State.MyTurn:
                                 Image.sprite = MyCell;

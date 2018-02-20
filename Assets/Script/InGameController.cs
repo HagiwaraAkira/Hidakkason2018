@@ -227,18 +227,55 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 			var targetCell = Field.CellList[index - 1];
 			if (targetCell.Card != null)
 			{
-				
-			if (targetCell.Card.Right < cell.Card.Left)
-			{
-				targetCell.ChangeImage(CurrentState);
-			}
-				
+				if (targetCell.Card.Right < cell.Card.Left)
+				{
+					targetCell.ChangeImage(CurrentState);
+				}
 			}
 		}
-		Debug.Log(cellName);
-		NextState();
-		
-	}
+		// 上
+			if (index > 2)
+			{
+				var targetCell2 = Field.CellList[index - 3];
+				if (targetCell2.Card != null)
+				{
+					if (targetCell2.Card.Bottom < cell.Card.Top)
+					{
+						targetCell2.ChangeImage(CurrentState);
+					}
+				}
+			}
+
+			// 下
+		if (index < 6)
+		{
+			var targetCell3 = Field.CellList[index + 3];
+			if (targetCell3.Card != null)
+			{
+				if (targetCell3.Card.Top < cell.Card.Bottom)
+				{
+					targetCell3.ChangeImage(CurrentState);
+				}
+			}
+		}
+
+		//右
+			if (index % 3 != 2)
+			{
+				var targetCell4 = Field.CellList[index + 1];
+				if (targetCell4.Card != null)
+				{
+					if (targetCell4.Card.Left < cell.Card.Right)
+					{
+						targetCell4.ChangeImage(CurrentState);
+					}
+				}
+
+			}
+			Debug.Log(cellName);
+				NextState();
+		}
+			
 }
 
 public static class LinqExtensions
