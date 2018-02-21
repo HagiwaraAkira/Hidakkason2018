@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using UniRx;
 using UnityEngine;
@@ -24,6 +25,8 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	public GameObject WinCut;
 	public GameObject LoseCut;
 	public GameObject DrawCut;
+	
+	public GameObject SameCut;
 
 	public TimeCounter MyTurnCounter;
 	public TimeCounter EnemyTurnCounter;
@@ -245,17 +248,25 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 	{
 		var cell = Field.GetCell(cellName);
 		var index = Field.CellList.IndexOf(cell);
+
+		List<Cell> SameCellList = new List<Cell>();
+		List<Cell> PlustCellList = new List<Cell>();
+		List<int> PlusNumList = new List<int>();
 		// 左側比較
 		if (index % 3 != 0)
 		{
 			var targetCell = Field.CellList[index - 1];
 			if (targetCell.Card != null)
 			{
-				if (targetCell.Card.Right < cell.Card.Left)
+				if (Reverse(targetCell.Card.Right < cell.Card.Left))
 				{
 					if(targetCell.IsMine && CurrentState == State.EnemyTrun || !targetCell.IsMine && CurrentState == State.MyTurn)
 					targetCell.Card.AnimationX();
 					targetCell.ChangeImage(CurrentState);
+				}
+				else if(targetCell.Card.Right == cell.Card.Left)
+				{
+					SameCellList .Add(targetCell);
 				}
 			}
 		}
@@ -265,12 +276,16 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				var targetCell2 = Field.CellList[index - 3];
 				if (targetCell2.Card != null)
 				{
-					if (targetCell2.Card.Bottom < cell.Card.Top)
+					if (Reverse(targetCell2.Card.Bottom < cell.Card.Top))
 					{
 						if(targetCell2.IsMine && CurrentState == State.EnemyTrun || !targetCell2.IsMine && CurrentState == State.MyTurn)
 						targetCell2.Card.AnimationY();
 						targetCell2.ChangeImage(CurrentState);
 					}
+									else if(targetCell2.Card.Bottom == cell.Card.Top)
+				{
+					SameCellList .Add(targetCell2);					
+				}
 				}
 			}
 
@@ -280,11 +295,15 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 			var targetCell3 = Field.CellList[index + 3];
 			if (targetCell3.Card != null)
 			{
-				if (targetCell3.Card.Top < cell.Card.Bottom)
+				if (Reverse( targetCell3.Card.Top < cell.Card.Bottom))
 				{
 					if(targetCell3.IsMine && CurrentState == State.EnemyTrun || !targetCell3.IsMine && CurrentState == State.MyTurn)
 					targetCell3.Card.AnimationY();
 					targetCell3.ChangeImage(CurrentState);
+				}
+													else if(targetCell3.Card.Top == cell.Card.Bottom)
+				{
+					SameCellList .Add(targetCell3);										
 				}
 			}
 		}
@@ -295,12 +314,16 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 				var targetCell4 = Field.CellList[index + 1];
 				if (targetCell4.Card != null)
 				{
-					if (targetCell4.Card.Left < cell.Card.Right)
+					if (Reverse(targetCell4.Card.Left < cell.Card.Right))
 					{
 						if(targetCell4.IsMine && CurrentState == State.EnemyTrun || !targetCell4.IsMine && CurrentState == State.MyTurn)
 							targetCell4.Card.AnimationX();
 						targetCell4.ChangeImage(CurrentState);
 					}
+					else if(targetCell4.Card.Left == cell.Card.Right)
+				{
+					SameCellList .Add(targetCell4);															
+				}
 				}
 
 			}
@@ -308,8 +331,32 @@ public class InGameController : SingletonMonoBehaviour<InGameController>
 		var count = Field.CellList.Count(_=>_.IsMine);
 		count += YourHand.MyHands.Count(_=>_.Used==false);
 		Status.SetScore(count);
-				NextState();
+		if (SameCellList.Count >= 2 && Setting.Instance.SameMode)
+		{
+			SameCellList.ForEach(_ =>
+			{
+				_.ChangeImage(CurrentState);
+				_.Card.AnimationX();
+				CutIn(SameCut, () =>
+				{
+					
+				});
+			});
 		}
+		
+		NextState();
+		}
+
+	private bool Reverse(bool judge)
+	{
+		if (Setting.Instance.ReverseMode)
+		{
+		return !judge;	
+		}
+		return judge;
+
+
+	}
 	
 	
 	#region Mode visible
